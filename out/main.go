@@ -21,13 +21,13 @@ func main() {
 
 	sources := os.Args[1]
 
-	var request models.OutRequest
+	var request models.Request
 	err := json.NewDecoder(os.Stdin).Decode(&request)
 	if err != nil {
 		fatal("reading request", err)
 	}
 
-	driver, err := driver.FromSource(request.Source)
+	driver, err := driver.FromSource(request)
 	if err != nil {
 		fatal("constructing driver", err)
 	}

@@ -13,13 +13,15 @@ import (
 var _ = Describe("Driver", func() {
 	Context("S3", func() {
 		var src models.Source
+		var req models.Request
 		BeforeEach(func() {
 			src = models.Source{
 				Driver: models.DriverS3,
 			}
+			req = models.Request{Source: src}
 		})
 		It("returns a s3 driver with http.DefaultClient", func() {
-			aDriver, err := driver.FromSource(src)
+			aDriver, err := driver.FromSource(req)
 			Expect(err).To(BeNil())
 			Expect(aDriver).ToNot(BeNil())
 			s3Driver, ok := aDriver.(*driver.S3Driver)
@@ -31,7 +33,7 @@ var _ = Describe("Driver", func() {
 		})
 		It("returns a s3 driver with a transport that ignores ssl verification", func() {
 			src.SkipSSLVerification = true
-			aDriver, err := driver.FromSource(src)
+			aDriver, err := driver.FromSource(req)
 			Expect(err).To(BeNil())
 			Expect(aDriver).ToNot(BeNil())
 			s3Driver, ok := aDriver.(*driver.S3Driver)

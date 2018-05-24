@@ -44,7 +44,7 @@ var _ = Describe("Check", func() {
 	})
 
 	Context("when executed", func() {
-		var request models.CheckRequest
+		var request models.Request
 		var response models.CheckResponse
 		var svc *s3.S3
 
@@ -64,7 +64,7 @@ var _ = Describe("Check", func() {
 
 			svc = s3.New(session.New(awsConfig))
 
-			request = models.CheckRequest{
+			request = models.Request{
 				Version: models.Version{},
 				Source: models.Source{
 					Bucket:          bucketName,

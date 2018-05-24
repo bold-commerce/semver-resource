@@ -22,7 +22,9 @@ type Driver interface {
 
 const maxRetries = 12
 
-func FromSource(source models.Source) (Driver, error) {
+func FromSource(request models.Request) (Driver, error) {
+	source := request.Source
+
 	var initialVersion semver.Version
 	if source.InitialVersion != "" {
 		version, err := semver.Parse(source.InitialVersion)
@@ -88,6 +90,10 @@ func FromSource(source models.Source) (Driver, error) {
 		}, nil
 
 	case models.DriverGit:
+		msg := source.CommitMessage
+		if len(request.Params.CommitMessage) > 0 {
+			msg = request.Params.CommitMessage
+		}
 		return &GitDriver{
 			InitialVersion: initialVersion,
 
@@ -98,7 +104,7 @@ func FromSource(source models.Source) (Driver, error) {
 			Password:      source.Password,
 			File:          source.File,
 			GitUser:       source.GitUser,
-			CommitMessage: source.CommitMessage,
+			CommitMessage: msg,
 		}, nil
 
 	case models.DriverSwift:

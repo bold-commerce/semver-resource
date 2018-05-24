@@ -42,7 +42,7 @@ var _ = Describe("Out", func() {
 	})
 
 	Context("when executed", func() {
-		var request models.OutRequest
+		var request models.Request
 		var response models.OutResponse
 
 		var svc *s3.S3
@@ -63,7 +63,7 @@ var _ = Describe("Out", func() {
 
 			svc = s3.New(session.New(awsConfig))
 
-			request = models.OutRequest{
+			request = models.Request{
 				Version: models.Version{},
 				Source: models.Source{
 					Bucket:          bucketName,

@@ -20,7 +20,7 @@ type InParams struct {
 	Pre  string `json:"pre"`
 }
 
-type OutRequest struct {
+type Request struct {
 	Source  Source    `json:"source"`
 	Version Version   `json:"version"`
 	Params  OutParams `json:"params"`
@@ -33,14 +33,10 @@ type OutResponse struct {
 
 type OutParams struct {
 	File string `json:"file"`
+	CommitMessage string `json:"commit_message,omitempty"`
 
 	Bump string `json:"bump"`
 	Pre  string `json:"pre"`
-}
-
-type CheckRequest struct {
-	Source  Source  `json:"source"`
-	Version Version `json:"version"`
 }
 
 type CheckResponse []Version
